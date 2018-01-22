@@ -1,0 +1,7 @@
+这是一个前后台分离的项目，前端采用vue.js+iview，开发IDE为vscode
+项目由iview-cli生成
+
+
+后端采用spring-boot框架
+通过mvn package 构建
+java -jar target/vueService....jar 运行
