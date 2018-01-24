@@ -47,7 +47,7 @@ module.exports = merge(webpackBaseConfig, {
         },
         port: '8033', //设置端口号
         //设置代理，仅用于dev模式
-        proxy: {
+        /*proxy: {
             '/api/*':{
                 target:'http://localhost:8080/',
                 changeOrigin: true,
@@ -63,7 +63,7 @@ module.exports = merge(webpackBaseConfig, {
             '/zsk/*':{
                 //这里代理zsk的，有时间再试
             }
-        }
+        }*/
 
     } 
 });

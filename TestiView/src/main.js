@@ -10,6 +10,12 @@ import 'iview/dist/styles/iview.css';
 import base from './base'
 Vue.use(base);
 
+//在main.js中如下声明使用
+//在其他vue组件中就可以this.$http调用使用
+//axios中文文档  ：https://www.kancloud.cn/yunye/axios/234845
+import axios from 'axios';
+Vue.prototype.$http=axios;
+
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
@@ -20,7 +26,7 @@ Vue.use(iView);
 
 // 路由配置
 const RouterConfig = {
-    mode: 'history',
+    //mode: 'history',
     routes: Routers
 };
 const router = new VueRouter(RouterConfig);

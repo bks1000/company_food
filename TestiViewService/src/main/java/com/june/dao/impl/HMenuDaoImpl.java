@@ -38,4 +38,20 @@ public class HMenuDaoImpl implements IHMenuDao {
 		return DataBaseUtils.queryForList(sql);
 	}
 
+	@Override
+	public List<List<Map<String, Object>>> getMenus3() {
+		List<List<Map<String, Object>>> result = new ArrayList<List<Map<String,Object>>>();
+		String sql = "select tid,tname from food_dishestypes";
+		List<Map<String, Object>> tps = DataBaseUtils.queryForList(sql);
+		tps.forEach(t->{
+			result.add(getHMenusByType((int)t.get("tid")));
+		});
+		return result;
+	}
+	
+	private List<Map<String, Object>> getHMenusByType(int tid) {
+		String sql = "select m.id,m.name,m.price,m.type,t.tname FROM food_hmenu m JOIN food_dishestypes t ON m.type=t.tid  WHERE m.enable=1 and t.tid=? ORDER BY t.tid,m.id";
+		return DataBaseUtils.queryForList(sql,tid);
+	}
+
 }

@@ -17,5 +17,11 @@ public interface IHMenuDao {
 	 * @return
 	 */
 	public List<Map<String, Object>> getMenus2();
+	
+	/**
+	 * 获取菜单数据，使用table列表的形式展现，勾选，提交。可以在弹出框中查看当前所订的菜单条目。
+	 * @return
+	 */
+	public List<List<Map<String, Object>>> getMenus3();
 
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
  * @author lenovo
  *
  */
-@CrossOrigin(origins = "http://localhost:8033")//为类设置跨域
+//@CrossOrigin(origins = "http://192.168.1.137:8011")//为类设置跨域
 @ServerEndpoint(value="/ws")
 @Component
 public class CallFoodWebSocket {

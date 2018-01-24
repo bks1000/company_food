@@ -63,6 +63,8 @@
 import Cookies from 'js-cookie';
 import axios from 'axios';
 //Vue.prototype.$http = axios;
+
+import config from '../config/config';
 export default {
     data () {
         return {
@@ -98,12 +100,20 @@ export default {
                         name: 'home_index'
                     });*/
                     var _self = this;
-                    axios.post('/api/login',{username: this.form.userName, pwd: this.form.pwd}).then((res)=>{
+                    /*axios.post('/api/login',{username: this.form.userName, pwd: this.form.pwd}).then((res)=>{
                         console.log(res);
                         if(res.data.length>20){
                             Cookies.set('token', res.data);
                             Cookies.set('username', this.form.userName);
                             window.location="home";
+                        }
+                    })*/
+                    axios.post(config.jvserver+'/login',{username: this.form.userName, pwd: this.form.pwd}).then((res)=>{
+                        console.log(res);
+                        if(res.data.length>20){
+                            Cookies.set('token', res.data);
+                            Cookies.set('username', this.form.userName);
+                            window.location="/#/home";
                         }
                     })
                 }

@@ -1,11 +1,18 @@
 <style scoped>
+    @import "main.css";
 </style>
 
 <template>
-  <div id="main">
+  <div id="main" class="wrap">
     <Row>
         <Col span="4" offset="20">欢迎：{{username}}</Col>
     </Row>
+    <div class="masonry"> 
+        <div class="item" v-for="menu in menus"> 
+             <Table border :columns="columns7" :data="menu" :width="400"></Table>
+        </div>
+     </div>
+
     <div>{{message}}</div>
      <Input v-model="value" placeholder="Enter something..." style="width: 300px"></Input>
     <Button type="primary" @click="send">Primary</Button>
@@ -16,6 +23,7 @@
 //import Vue from 'vue'
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import config from '../config/config'
 //Vue.prototype.$http = axios;
 //import "../libs/sockjs.min.js"
 export default {
@@ -24,13 +32,28 @@ export default {
             username:'',
             websocket:'',
             value:'',
-            message:''
+            message:'',
+            menus:[[]], //菜单
+            columns7:[
+                {type: 'selection',width: 40,align: 'center'},
+                {title: 'ID',key: 'id',width: 60},
+                {title: '类型',key: 'tname',width: 80},
+                {title: '名称',key: 'name'},
+                {title: '价格',key: 'price',width: 80},
+            ]
         };
     },
     methods: {
-        setMessageInnerHTML(innerHTML){
-            //将消息显示在网页上
-            this.message = innerHTML;
+        query(){
+            var _self = this;
+            /*axios.post('/api/menu/getmenus').then((res)=>{
+                console.log(res.data);
+                this.menus = res.data;
+            })*/
+            axios.post(config.jvserver+'/menu/getmenus').then((res)=>{
+                console.log(res.data);
+                this.menus = res.data;
+            })
         },
         closeWebSocket(){
             //关闭连接
@@ -43,11 +66,13 @@ export default {
         }
     },
     mounted: function(){
+        this.query();
+
         /****************************************websocket****************************************** */
         this.username = Cookies.get("username");
         //判断当前浏览器是否支持WebSocket
         if('WebSocket' in window){
-            this.websocket = new WebSocket("ws://localhost:8080/ws");//这里报错.代理不了websocket.通过spring boot设置跨域解决
+            this.websocket = new WebSocket(config.wsserver);//这里报错.代理不了websocket.通过spring boot设置跨域解决
         }
         else{
             alert('Not support websocket')

@@ -25,4 +25,9 @@ public class HMenuBoImpl implements IHMenuBo {
 		return dao.getMenus2();
 	}
 
+	@Override
+	public List<List<Map<String, Object>>> getMenus3() {
+		return dao.getMenus3();
+	}
+
 }
