@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,17 +23,18 @@ public class PersonController extends BaseController {
 	@Autowired
     private IUsersBo userbo;
     
-    @RequestMapping("/login")
+	//@CrossOrigin(origins = "http://localhost:3000")//为方法设置跨域
+    @RequestMapping(value = "/login",consumes = "application/json")
     @ResponseBody
-    public String login(HttpServletRequest request,HttpServletResponse response) {
+    public String login(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String, Object> paramsMap) {
     	try {
 			Map<String, Object> userInfo = null;
 			String token = null;
-			//Map<String, Object> params = PageUtils.getParameters(request);
-			//String username = params.get("username").toString();
-			//String pwd = params.get("pwd").toString();
-			String username = request.getParameter("username");
-			String pwd = request.getParameter("pwd");
+
+			//String username = request.getParameter("username");
+			//String pwd = request.getParameter("pwd");
+			String username = paramsMap.get("username").toString();
+			String pwd = paramsMap.get("pwd").toString();
 			
 			userInfo = userbo.userLogin(username,pwd);
 

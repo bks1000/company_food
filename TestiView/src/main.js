@@ -7,6 +7,9 @@ import Util from './libs/util';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
 
+import base from './base'
+Vue.use(base);
+
 
 Vue.use(VueRouter);
 Vue.use(Vuex);

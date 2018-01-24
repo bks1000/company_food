@@ -12,8 +12,8 @@ import com.june.utils.DataBaseUtils;
 @Repository
 public class UsersDaoImpl implements IUsersDao {
 	
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	/*@Autowired
+	private JdbcTemplate jdbcTemplate;*/
 	
 	/*public UsersDaoImpl(JdbcTemplate tmp) {
 		this.jdbcTemplate = tmp;

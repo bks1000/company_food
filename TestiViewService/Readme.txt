@@ -15,3 +15,10 @@ https://spring.io/guides/gs/rest-service/
 
 spring boot 配置
 http://blog.csdn.net/isea533/article/details/50281151
+
+
+spring boot Websocket（使用笔记）
+https://www.cnblogs.com/bianzy/p/5822426.html
+
+玩转spring boot——websocket
+https://www.cnblogs.com/GoodHelper/p/7078381.html      ***

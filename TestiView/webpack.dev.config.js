@@ -56,6 +56,10 @@ module.exports = merge(webpackBaseConfig, {
                     '^/api/': '/'
                 }
             },
+            '/ws/*':{
+                target: 'ws://127.0.0.1:8080/ws',
+                ws: true
+            },
             '/zsk/*':{
                 //这里代理zsk的，有时间再试
             }

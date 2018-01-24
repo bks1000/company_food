@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
@@ -104,4 +108,24 @@ public class JavaConfig {
          return new PersonController(impl);
     }*/
     
+    /**
+     * 配置实现全局跨域：
+     * registry.addMapping("/**")：为根目录的全部请求，也可以设置为"/user/**"，这意味着是user目录下的所有请求。
+     * 这里设置了，好像没起作用
+     * @return
+     */
+    /*@Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("http://localhost:8033");
+            }
+        };
+    }*/
+    
+    @Bean  
+    public ServerEndpointExporter serverEndpointExporter(){  
+        return new ServerEndpointExporter();  
+    }  
 }
