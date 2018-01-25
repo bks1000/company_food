@@ -7,14 +7,30 @@
     <Row>
         <Col span="4" offset="20">欢迎：{{username}}</Col>
     </Row>
+    <Row>
+        <Col span="4" offset="20">
+            <Affix :offset-top="20">
+                <Button type="info" @click="info=true">已点菜品</Button>
+            </Affix>
+        </Col>
+    </Row>
     <div class="masonry"> 
         <div class="item" v-for="menu in menus"> 
-             <Table border :columns="columns7" :data="menu" :width="400"></Table>
+             <Table border :columns="colMenu" :data="menu" :width="400" :loading="loading"
+             @on-select="selectOne" @on-selection-change="selectChange"></Table>
         </div>
      </div>
 
+    <Modal
+        v-model="info"
+        title="确认订单"
+        @on-ok="confirmOrder"
+        @on-cancel="info=false">
+        <Table border :columns="colOrder" :data="orders" :width="490"></Table>
+    </Modal>
+
     <div>{{message}}</div>
-     <Input v-model="value" placeholder="Enter something..." style="width: 300px"></Input>
+    <Input v-model="value" placeholder="Enter something..." style="width: 300px"></Input>
     <Button type="primary" @click="send">Primary</Button>
   </div>
 </template>
@@ -33,13 +49,83 @@ export default {
             websocket:'',
             value:'',
             message:'',
-            menus:[[]], //菜单
-            columns7:[
-                {type: 'selection',width: 40,align: 'center'},
+            loading: true,
+            info:false,
+            menus:[[]], //菜单数据
+            colMenu:[
+                {type: 'selection',width: 60,align: 'center'},
                 {title: 'ID',key: 'id',width: 60},
                 {title: '类型',key: 'tname',width: 80},
                 {title: '名称',key: 'name'},
                 {title: '价格',key: 'price',width: 80},
+            ],
+            orders:[],
+            colOrder:[
+                {title: 'ID',key: 'id',width: 60},
+                {title: '类型',key: 'tname',width: 80},
+                {title: '名称',key: 'name'},
+                {title: '价格',key: 'price',width: 80},
+                {title: '数量',key:'count',width: 70, render: (h, params) => {
+                    if(params.row.id==""){
+                        return "";
+                    }
+                    return h('div', [
+                        h('InputNumber',{
+                            props: {
+                                min: 1,
+                                value:parseInt(params.row.count)
+                            }, 
+                            nativeOn: {
+                                change: (c) => {
+                                    //console.log(c.target.value);
+                                    this.orders[params.index].count=parseInt(c.target.value);
+                                    //console.log(this.orders);
+
+                                    //重新计算合计
+                                    this.orders[this.orders.length-1].price = 0;
+                                    var total = 0;
+                                    for(var order of this.orders){
+                                        if(order.name==""){
+                                            break;
+                                        }
+                                        total += order.price*order.count;
+                                    }
+                                    this.orders[this.orders.length-1].price=total;
+                                }
+                            }
+                        })
+                    ]);
+                }},
+                {title: '移除',width: 70, render: (h, params) => {
+                    if(params.row.id==""){
+                        return "";
+                    }
+                    return h('div', [
+                        h('Button', {
+                            props: {
+                                type: 'error',
+                                size: 'small'
+                                ,align:'center'
+                            },
+                            on: {
+                                click: () => {
+                                    this.orders.splice(params.index,1);
+
+                                    //重新计算合计
+                                    this.orders[this.orders.length-1].price = 0;
+                                    var total = 0;
+                                    for(var order of this.orders){
+                                        if(order.name==""){
+                                            break;
+                                        }
+                                        total += order.price*order.count;
+                                    }
+                                    this.orders[this.orders.length-1].price=total;
+                                }
+                            }
+                        }, 'X')
+                    ]);
+                }}
             ]
         };
     },
@@ -51,7 +137,7 @@ export default {
                 this.menus = res.data;
             })*/
             axios.post(config.jvserver+'/menu/getmenus').then((res)=>{
-                console.log(res.data);
+                //console.log(res.data);
                 this.menus = res.data;
             })
         },
@@ -63,6 +149,36 @@ export default {
             //发送消息
             //var message = document.getElementById('text').value;
             this.websocket.send(this.value);
+        },
+        selectOne(selection,row){
+            /*console.log(selection);//对于单个table有用，对于同时处理多个，没用。
+            console.log(row);*/
+
+            //先加入合计行
+            if(this.orders.length==0){
+                this.orders.push({'id':'','tname':'合计','name':'','price':0,'count':''});
+            }
+            row.count=1;
+            for(var order of this.orders){
+                if(order.id==row.id){
+                    return;
+                }
+            }
+
+            //在合计行之前加入
+            this.orders.splice(this.orders.length-1,0,row);
+            //this.orders.push(row);
+            //console.log(this.orders);
+
+            //计算合计
+            this.orders[this.orders.length-1].price = this.orders[this.orders.length-1].price + row.price;
+        },
+        selectChange(selection){
+            
+        },
+        confirmOrder(){
+            console.log(this.orders);
+            this.info=false;
         }
     },
     mounted: function(){
@@ -110,6 +226,8 @@ export default {
         window.onbeforeunload = function(){
             _self.websocket.close();
         }
+
+        this.loading=false;
     }
 };
 </script>

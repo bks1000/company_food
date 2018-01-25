@@ -26,7 +26,8 @@ public class PersonController extends BaseController {
     private IUsersBo userbo;
     
 	//@CrossOrigin(origins = "http://localhost:3000")//为方法设置跨域
-    @RequestMapping(value = "/login",consumes = "application/json")
+    @CrossOrigin
+	@RequestMapping(value = "/login",consumes = "application/json")
     @ResponseBody
     public String login(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String, Object> paramsMap) {
     	try {

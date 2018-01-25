@@ -24,5 +24,4 @@ public class HMenuController {
 	public List<List<Map<String, Object>>> getMenus() {
 		return menuBo.getMenus3();
 	}
-	
 }

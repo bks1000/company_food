@@ -5,9 +5,13 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -111,21 +115,54 @@ public class JavaConfig {
     /**
      * 配置实现全局跨域：
      * registry.addMapping("/**")：为根目录的全部请求，也可以设置为"/user/**"，这意味着是user目录下的所有请求。
-     * 这里设置了，好像没起作用
+     * 
+	 * 官方文档：	https://docs.spring.io/spring-boot/docs/1.5.6.RELEASE/reference/htmlsingle/#boot-features-cors
      * @return
      */
-    /*@Bean
+    @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:8033");
+                registry.addMapping("/**").allowedOrigins("*");
             }
         };
-    }*/
+    }
     
     @Bean  
     public ServerEndpointExporter serverEndpointExporter(){  
         return new ServerEndpointExporter();  
     }  
+    
+    
+    /*@Bean
+    public WebMvcConfigurer corsConfigurer() {
+    	System.out.println("1");
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+        		.allowedOrigins("*")
+        		.allowedMethods("*")
+        		.allowedHeaders("*")
+        		//.exposedHeaders("*")
+        		.allowCredentials(false).maxAge(3600);
+            }
+        };
+    }
+    
+    @Bean
+	public FilterRegistrationBean corsFilter() {
+    	System.out.println("2");
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowCredentials(false);
+		config.addAllowedOrigin("*");
+		config.addAllowedHeader("*");
+		config.addAllowedMethod("*");
+		source.registerCorsConfiguration("/**", config);
+		FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+		bean.setOrder(0);
+		return bean;
+	}*/
 }

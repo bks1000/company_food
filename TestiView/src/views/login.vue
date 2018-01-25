@@ -2,7 +2,6 @@
     .login{
         width: 100%;
         height: 100%;
-        background-image: url('https://file.iviewui.com/iview-admin/login_bg.jpg');
         background-size: cover;
         background-position: center;
         position: relative;
@@ -59,6 +58,7 @@
 </template>
 
 <script>
+
 //import Vue from 'vue'
 import Cookies from 'js-cookie';
 import axios from 'axios';

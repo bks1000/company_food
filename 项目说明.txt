@@ -10,3 +10,19 @@ npm run build
 后端采用spring-boot框架
 通过mvn package 构建
 java -jar target/vueService....jar 运行
+
+
+
+
+发布到公网访问过程：
+1.npm run build
+2.将前端网站路径添加到iis或者nginx，并设置首页为index_prod.html
+3.启动spring boot程序
+4.打开花生壳，将r1f5717718.51mypc.cn:36467 配置为127.0.0.1:8011(前端发布地址)
+		将happydaily.imwork.net:33950 配置为127.0.0.1:8080(spring boot 地址)
+5.打开前端项目src/config/config.js
+  修改jvserver为：http://happydaily.imwork.net:33950
+  修改wsserver 为 ws://happydaily.imwork.net:33950/ws
+
+6.npm run build
+这样就可以通过 http://r1f5717718.51mypc.cn:36467在公网访问系统了。
