@@ -8,9 +8,16 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.june.dto.PageDTO;
 
+@Component
 public class PageUtils {
+	
+	@Autowired
+	private TokenUtils tokenUtils;
 
 	/**
 	 * @param request
@@ -129,10 +136,10 @@ public class PageUtils {
 	 * @param key
 	 * @return
 	 */
-	/*public static String getCacheData(HttpServletRequest req,String key){
-        String token= TokenUtils.getToken(req);
+	public String getCacheData(String token,String key){
+        //String token= tokenUtils.getToken(req);
         String value= CacheUtils.hget(token, key);//平台用户id
 		return value;
 
-    }*/
+    }
 }

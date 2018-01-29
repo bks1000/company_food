@@ -16,9 +16,16 @@ https://spring.io/guides/gs/rest-service/
 spring boot 配置
 http://blog.csdn.net/isea533/article/details/50281151
 
-
+##############################WEbSocket##########################################
 spring boot Websocket（使用笔记）
 https://www.cnblogs.com/bianzy/p/5822426.html
 
 玩转spring boot——websocket
 https://www.cnblogs.com/GoodHelper/p/7078381.html      ***
+
+
+websocket传递json到后台
+https://www.cnblogs.com/yehao1210/p/8117561.html
+
+websocket后台传递json到前台
+http://blog.csdn.net/grs294845170/article/details/76619285

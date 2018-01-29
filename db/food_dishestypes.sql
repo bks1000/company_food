@@ -1,0 +1,11 @@
+INSERT INTO `food_dishestypes` VALUES (1, '凉菜类');
+INSERT INTO `food_dishestypes` VALUES (2, '热菜类');
+INSERT INTO `food_dishestypes` VALUES (3, '熏肉类');
+INSERT INTO `food_dishestypes` VALUES (4, '素菜类');
+INSERT INTO `food_dishestypes` VALUES (5, '炖菜');
+INSERT INTO `food_dishestypes` VALUES (6, '鱼虾类');
+INSERT INTO `food_dishestypes` VALUES (7, '鸡牛羊类');
+INSERT INTO `food_dishestypes` VALUES (8, '下货类');
+INSERT INTO `food_dishestypes` VALUES (9, '甜品类');
+INSERT INTO `food_dishestypes` VALUES (10, '汤类');
+INSERT INTO `food_dishestypes` VALUES (11, '饺子类');

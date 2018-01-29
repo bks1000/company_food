@@ -1,14 +1,18 @@
 package com.june.config;
 
+import java.net.MalformedURLException;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -19,7 +23,9 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
-@Configuration
+//SpringBoot获取properties配置
+//http://blog.csdn.net/yyhjava/article/details/53283675
+@Configuration////标注一个类是配置类，spring boot在扫到这个注解时自动加载这个类相关的功能，比如前面的文章中介绍的配置AOP和拦截器时加在类上的Configuration
 public class JavaConfig {
 	/*JWT*/
 	@Value("${jwt.signingSecret}")
@@ -67,6 +73,7 @@ public class JavaConfig {
     @Value("{spring.datasource.connectionProperties}")  
     private String connectionProperties; 
     
+    //在Spring容器中，我们手工注解@Bean 将被优先加载，框架不会重新实例化其他的 实现类。
     @Bean(value="dataSource")     //声明其为Bean实例  
     @Primary  //在同样的DataSource中，首先使用被标注的DataSource  
     public DataSource dataSource(){  
@@ -129,6 +136,10 @@ public class JavaConfig {
         };
     }
     
+    /**
+     * websocket配置
+     * @return
+     */
     @Bean  
     public ServerEndpointExporter serverEndpointExporter(){  
         return new ServerEndpointExporter();  
@@ -165,4 +176,5 @@ public class JavaConfig {
 		bean.setOrder(0);
 		return bean;
 	}*/
+    
 }

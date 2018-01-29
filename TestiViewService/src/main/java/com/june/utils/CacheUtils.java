@@ -233,7 +233,7 @@ public class CacheUtils {
 	 * @param key
 	 * @return
 	 */
-	public static Map<String, String> hgetAll(final String key) {
+	public  Map<String, String> hgetAll(final String key) {
 		return hgetAll(key, PT_APPID);
 	}
 
@@ -244,7 +244,7 @@ public class CacheUtils {
 	 * @param appId
 	 * @return
 	 */
-	public static Map<String, String> hgetAll(final String key, final String appId) {
+	public  Map<String, String> hgetAll(final String key, final String appId) {
 		if (CacheType == 0) {
 			//return DbCacheUtils.hgetAll(key, appId);
 		} else if (CacheType == 1) {

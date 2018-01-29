@@ -1,6 +1,7 @@
 package com.june.vueService;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.websocket.OnClose;
@@ -10,8 +11,17 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import net.minidev.json.JSONObject;
+import net.minidev.json.JSONValue;
+import net.minidev.json.parser.ParseException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import com.june.utils.CacheUtils;
+
+import ch.qos.logback.core.subst.Token;
 
 /**
  * 点餐websocket服务
@@ -23,6 +33,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @ServerEndpoint(value="/ws")
 @Component
 public class CallFoodWebSocket {
+	
+	//@Autowired
+	//private CacheUtils cacheUtils;
 
 	 //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static int onlineCount = 0;
@@ -65,6 +78,19 @@ public class CallFoodWebSocket {
     @OnMessage
     public void onMessage(String message, Session session) {
         System.out.println("来自客户端的消息:" + message);
+        /*Object obj=null;
+		try {
+			obj = JSONValue.parseStrict(message);
+		} catch (ParseException e1) {
+			// TODO 自动生成的 catch 块
+			e1.printStackTrace();
+		}
+        JSONObject obj3=(JSONObject)obj;
+        String token = obj3.get("token").toString();
+        String msg = obj3.getAsString("message");
+        Map<String, String> userInfo = cacheUtils.hgetAll(token);
+        
+        message = userInfo.get("name")+":"+msg;*/
 
         //群发消息
         for (CallFoodWebSocket item : webSocketSet) {

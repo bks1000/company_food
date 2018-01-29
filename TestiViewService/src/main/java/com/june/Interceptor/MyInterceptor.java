@@ -6,6 +6,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * 拦截器，在config中配置好，就可以用的。这个拦截器是跨域的配置，用不着了。
+ * @author lenovo
+ *
+ */
 public class MyInterceptor implements HandlerInterceptor {
 
 	/**  

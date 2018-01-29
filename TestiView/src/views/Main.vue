@@ -30,8 +30,8 @@
     </Modal>
 
     <div>{{message}}</div>
-    <Input v-model="value" placeholder="Enter something..." style="width: 300px"></Input>
-    <Button type="primary" @click="send">Primary</Button>
+    <Input v-model="value" placeholder="说点什么吧" style="width: 300px"></Input>
+    <Button type="primary" @click="send">发送</Button>
   </div>
 </template>
 
@@ -147,8 +147,10 @@ export default {
         },
         send(){
             //发送消息
-            //var message = document.getElementById('text').value;
-            this.websocket.send(this.value);
+            //传json
+            //var messageObj = {message:this.value,token:Cookies.get('token')};
+            //var messageJson = JSON.stringify(messageObj);
+            this.websocket.send(Cookies.get('username')+":"+this.value);
         },
         selectOne(selection,row){
             /*console.log(selection);//对于单个table有用，对于同时处理多个，没用。
@@ -178,7 +180,11 @@ export default {
         },
         confirmOrder(){
             console.log(this.orders);
-            this.info=false;
+            var token = Cookies.get('token');
+            axios.post(config.jvserver+'/menu/saveOrder',{'token':token,'orders':this.orders}).then((res)=>{
+                
+                this.info=false;
+            });
         }
     },
     mounted: function(){
@@ -214,6 +220,11 @@ export default {
             console.log(this);
             console.log(event);
             _self.message = event.data;
+            _self.$Notice.open({
+                title: '来消息了！',
+                desc: event.data,
+                duration: 0
+            });
         }
 
         //连接关闭的回调方法

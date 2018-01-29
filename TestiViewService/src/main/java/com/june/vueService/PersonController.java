@@ -57,7 +57,8 @@ public class PersonController extends BaseController {
 					}
 				}
 				cacheUtils.hmset(token, hash);
-				
+				System.out.println(token);
+				System.out.println(hash.toString());
 				return token;
 			}
 		} catch (Exception e) {
