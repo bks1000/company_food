@@ -58,6 +58,9 @@ const store = new Vuex.Store({
     }
 });
 
+import menu from "./views/component/menu.vue" 
+//全局注册vue组件
+Vue.component('my-menu', menu);
 
 new Vue({
     el: '#app',

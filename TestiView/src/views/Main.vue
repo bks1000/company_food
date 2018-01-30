@@ -4,9 +4,7 @@
 
 <template>
   <div id="main" class="wrap">
-    <Row>
-        <Col span="4" offset="20">欢迎：{{username}}</Col>
-    </Row>
+    <my-menu v-bind:user-name="username"></my-menu>
     <Row>
         <Col span="4" offset="20">
             <Affix :offset-top="20">
@@ -43,6 +41,7 @@ import config from '../config/config'
 //Vue.prototype.$http = axios;
 //import "../libs/sockjs.min.js"
 export default {
+    name:'main',
     data () {
         return {
             username:'',
@@ -192,6 +191,7 @@ export default {
 
         /****************************************websocket****************************************** */
         this.username = Cookies.get("username");
+        
         //判断当前浏览器是否支持WebSocket
         if('WebSocket' in window){
             this.websocket = new WebSocket(config.wsserver);//这里报错.代理不了websocket.通过spring boot设置跨域解决

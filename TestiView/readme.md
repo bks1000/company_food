@@ -64,3 +64,8 @@ const RouterConfig = {
     routes: Routers
 };
 
+
+
+#vue.js组件
+https://vuefe.cn/v2/guide/components.html#Props
+https://www.cnblogs.com/landeanfen/p/6518679.html#_label1

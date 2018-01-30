@@ -62,4 +62,30 @@ public class HMenuController extends BaseController {
 	    orderBo.saveOrderAndDetails(o2.get(0), o1);
 		return result;
 	}
+	
+	/**
+	 * 查询订单主表
+	 * @return
+	 */
+	@RequestMapping("queryOrders")
+	@ResponseBody
+	public List<Map<String, Object>> queryOrders(){
+		return orderBo.queryOrders();
+	}
+	
+	/**
+	 * 查询订单明细
+	 * @param oid 订单主表ID
+	 * @return
+	 */
+	@RequestMapping( value="queryOrderDetails",consumes="application/json")
+	@ResponseBody
+	public List<Map<String, Object>> queryOrderDetails(HttpServletRequest request,@RequestBody Map<String, Object> params){
+		
+		String token = params.get("token").toString();
+		//token验证 暂略
+		
+		String oid = params.get("oid").toString();
+		return orderBo.queryOrderDetails(oid);
+	}
 }

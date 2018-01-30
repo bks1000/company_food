@@ -29,4 +29,16 @@ public class OrdersDaoImpl implements IOrdersDao{
 		}
 	}
 
+	@Override
+	public List<Map<String, Object>> queryOrders() {
+		String sql ="select * from food_orders o WHERE o.enable=1 ORDER BY o.createdtime DESC";
+		return DataBaseUtils.queryForList(sql);
+	}
+
+	@Override
+	public List<Map<String, Object>> queryOrderDetails(String oid) {
+		String sql="select om.*,dt.tname from food_ordermenus om join food_hmenu m on om.mid=m.id join food_dishestypes dt on dt.tid = m.type WHERE om.oid=?";
+		return DataBaseUtils.queryForList(sql,oid);
+	}
+
 }

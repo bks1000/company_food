@@ -24,4 +24,14 @@ public class OrdersBoImpl implements IOrdersBo {
 		dao.saveOrderMenus(uuid,details);
 	}
 
+	@Override
+	public List<Map<String, Object>> queryOrders() {
+		return dao.queryOrders();
+	}
+
+	@Override
+	public List<Map<String, Object>> queryOrderDetails(String oid) {
+		return dao.queryOrderDetails(oid);
+	}
+
 }

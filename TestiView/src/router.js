@@ -12,6 +12,19 @@ const routers = [{
     },
     component: (resolve) => require(['./views/Main.vue'], resolve)
 },{
+    path: '/order',
+    meta: {
+        title: 'Order'
+    },
+    component: (resolve) => require(['./views/Order.vue'], resolve)
+},{
+    path: '/person',
+    meta: {
+        title: 'Person'
+    },
+    component: (resolve) => require(['./views/Person.vue'], resolve)
+}
+,{
     path: '/home1',
     meta: {
         title: 'Layout'
