@@ -3,7 +3,7 @@
 
 前端启动开发服务器
 npm run dev
-前端发布
+前端发布（发布前，删除dist文件夹中的内容）
 npm run build
 
 

@@ -69,3 +69,7 @@ const RouterConfig = {
 #vue.js组件
 https://vuefe.cn/v2/guide/components.html#Props
 https://www.cnblogs.com/landeanfen/p/6518679.html#_label1
+
+
+#后台服务地址配置
+如果访问java 后台不成功，请修改src/config/config.js
