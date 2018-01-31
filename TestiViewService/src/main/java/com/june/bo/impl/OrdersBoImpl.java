@@ -34,4 +34,10 @@ public class OrdersBoImpl implements IOrdersBo {
 		return dao.queryOrderDetails(oid);
 	}
 
+	@Override
+	public void delOrder(String oid) {
+		dao.delOrder(oid);
+		
+	}
+
 }

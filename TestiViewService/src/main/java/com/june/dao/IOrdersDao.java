@@ -30,4 +30,10 @@ public interface IOrdersDao {
 	 * @return
 	 */
 	public List<Map<String, Object>> queryOrderDetails(String oid);
+	
+	/**
+	 * 删除订单
+	 * @param oid
+	 */
+	public void delOrder(String oid);
 }

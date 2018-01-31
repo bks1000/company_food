@@ -181,7 +181,7 @@ export default {
             console.log(this.orders);
             var token = Cookies.get('token');
             axios.post(config.jvserver+'/menu/saveOrder',{'token':token,'orders':this.orders}).then((res)=>{
-                
+                this.$Message.info('订单已保存');
                 this.info=false;
             });
         }

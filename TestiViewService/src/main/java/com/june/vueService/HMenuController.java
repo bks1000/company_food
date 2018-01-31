@@ -88,4 +88,20 @@ public class HMenuController extends BaseController {
 		String oid = params.get("oid").toString();
 		return orderBo.queryOrderDetails(oid);
 	}
+	
+	/**
+	 * 删除订单
+	 * @param request
+	 * @param params
+	 */
+	@RequestMapping(value="delOrder",consumes="application/json")
+	@ResponseBody
+	public String delOrder(HttpServletRequest request,@RequestBody Map<String, Object> params){
+		String token = params.get("token").toString();
+		//token验证 暂略
+		
+		String oid = params.get("oid").toString();
+		orderBo.delOrder(oid);
+		return "1";
+	}
 }

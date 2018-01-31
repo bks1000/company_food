@@ -41,4 +41,12 @@ public class OrdersDaoImpl implements IOrdersDao{
 		return DataBaseUtils.queryForList(sql,oid);
 	}
 
+	@Override
+	public void delOrder(String oid) {
+		String sql="update food_orders set enable=0 WHERE oid=?";
+		DataBaseUtils.update(sql, oid);
+		//sql = "DELETE from food_ordermenus WHERE oid=?";
+		//DataBaseUtils.update(sql, oid);
+	}
+
 }
